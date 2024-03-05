@@ -10,19 +10,32 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.lifecycleScope
 import com.example.noteapp.ui.theme.NoteAppTheme
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             NoteAppTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
+                val handler = CoroutineExceptionHandler { _, throwable ->
+                    println("Caught exception: $throwable")
+                }
+                CoroutineScope(Dispatchers.Main + handler).launch {
+                    launch {
+                        delay(300L)
+                        throw Exception("Coroutine 1 failed")
+                    }
+                    launch {
+                        delay(400L)
+                        println("Coroutine 2 finished")
+                    }
                 }
             }
         }

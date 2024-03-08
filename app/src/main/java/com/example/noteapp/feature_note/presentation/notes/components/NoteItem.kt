@@ -79,7 +79,7 @@ fun NoteItem(
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = note.title,
+                text = note.content,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurface,
                 maxLines = 10,

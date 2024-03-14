@@ -65,7 +65,7 @@ fun NotesScreen(
                 },
                 containerColor = MaterialTheme.colorScheme.primary
             ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add note")
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
             }
         },
         snackbarHost = { SnackbarHost(snackbarHostState) }
